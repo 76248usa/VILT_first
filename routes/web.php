@@ -27,9 +27,6 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
  //   return new ContactedMessage('test@test.com', 'Just testing');
 //});
 
-Route::get('/text', [ContactController::class, 'contact']);
-
-
-
+Route::get('/test', [ContactController::class, 'contact']);
 
 

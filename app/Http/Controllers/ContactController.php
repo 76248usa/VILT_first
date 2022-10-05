@@ -6,6 +6,7 @@ use App\Mail\ContactedMessage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
+
 class ContactController extends Controller
 {
     public function contact(Request $request)
@@ -20,5 +21,7 @@ class ContactController extends Controller
 
         return redirect('/')
             ->with('contacted', true);
+
+            //return $request->session()->all();
     }
 }
