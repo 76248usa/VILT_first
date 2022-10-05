@@ -1,5 +1,7 @@
 <?php
-
+use App\Http\Controllers\ContactController;
+use App\Mail\ContactedMessage;
+use App\Mail\ContactedMessage2;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -15,10 +17,17 @@ Route::get('/', function () {
     ]);
 });
 
+Route::post('contact',[ContactController::class, 'contact'])->name('contact');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->name('dashboard');
+
+//Route::get('/test', function(){
+ //   return new ContactedMessage('test@test.com', 'Just testing');
+//});
+
+Route::get('/text', [ContactController::class, 'contact']);
 
 
 

@@ -56,7 +56,11 @@
                     <jet-button class="
                 bg-green-400 rounded
                 font-bold text-sm
-                text-gray-800 hover:bg-green-800">Let's chat</jet-button>
+                text-gray-800 hover:bg-green-800"
+
+                @click="contacting = true">
+
+                Let's chat</jet-button>
                 </div>
             </div>
 
@@ -82,13 +86,48 @@
             <jet-button class="
                 bg-indigo-800 rounded
                 font-bold text-sm
-                text-gray-200 hover:bg-indigo-700">Get in touch</jet-button>
+                text-gray-200 hover:bg-indigo-700"
+
+                @click="contacting = true">
+
+                Get in touch</jet-button>
             </div>
 
         </Section>
 
 
-        <Section class="bg-gray-600 text-gray-200  h-screen">
+        <!--<Section class="bg-gray-600 text-gray-200 h-screen">
+            <h2 class="text-6xl font-bold pt-3">Projects</h2>
+
+            <div v-for="(project, index) in projects" :key="index">
+                <Project
+                    :title="project.title"
+                    :description="project.description"
+                    :color="project.color"
+                >
+
+                </Project>
+            </div>
+
+            <div class="flex justify-center mt-10">
+                <jet-button class="
+                    bg-purple-100
+                    rounded
+                    font-bold
+                    text-sm
+                    text-gray-800
+                    hover:bg-purple-200"
+
+                    @click="contacting = true"
+                >
+
+                </jet-button>
+            </div>
+
+        </Section>-->
+
+
+    <Section class="bg-gray-600 text-gray-200  h-screen">
             <h2 class="text-5xl font-bold pt-3">Projects</h2>
 
             <div class="grid grid-cols-2">
@@ -98,37 +137,28 @@
                     :description="project.description"
                     :color="project.color"
                 >
-                <section class="
-        flex
-        items-end
-        px-11
-        py-6
-        justify-between
-    ">
+
         <div
             :class="color"
             class="bg-gray-100 h-10 w-10 rounded-2xl"
         >
             <slot></slot>
         </div>
-
-        <p class="text-2xl font-extrabold mx-5 flex-1">
-            {{ project.title }}
-        </p>
-
-        <p class="text-xl mx-5 flex-1">
-            {{ project.description }}
-        </p>
-        <BeakerIcon />
-    </section>
-
                     </Project>
+           </div>
 
-                </div>
+                <div class="flex justify-center mt-10">
+            <jet-button class="
+                bg-indigo-800 rounded
+                font-bold text-sm
+                text-gray-200 hover:bg-indigo-700"
+
+                @click="contacting = true"
+
+                >Get in touch</jet-button>
             </div>
 
-
-
+            </div>
         </Section>
 
 
@@ -142,6 +172,45 @@
         </Section>
     </div>
 
+    <jet-modal :show="contacting" closeable="true" @close="contacting=null">
+        <div class="bg-gray-50 shadow-2xl p-8">
+            <p class="
+        text-gray-600 text-2xl font-extrabold text-center">Please let us know some details</p>
+
+        <form
+                class="flex flex-col items-center p-16"
+                @submit.prevent="submit"
+            >
+                <jet-input
+                    class="px-5 py-3 w-96 border border-gray-600 rounded"
+                    type="email"
+                    name="email"
+                    placeholder="Your email"
+                    v-model="form.email"
+                ></jet-input>
+
+                <jet-input-error :message="form.errors.email" />
+
+                <textarea
+                    class="px-5 py-3 w-96 border border-gray-600 rounded mt-5"
+                    name="message"
+                    placeholder="The details :)"
+                    v-model="form.message"
+                ></textarea>
+
+                <jet-input-error :message="form.errors.email" />
+
+                <jet-button
+                    class="px-5 py-3 mt-5 w-96 bg-purple-400 justify-center rounded-xl text-sm"
+
+                >Keep in Touch</jet-button>
+
+            </form>
+
+        </div>
+
+    </jet-modal>
+
 </template>
 
 <script>
@@ -150,8 +219,11 @@
     import JetApplicationMark from '@/Jetstream/ApplicationMark'
     import Section from '@/Components/Section'
     import JetButton from '@/Jetstream/Button'
+    import JetModal from '@/Jetstream/Modal'
+    import JetInput from '@/Jetstream/Input'
     import Skill from '@/Components/Skill'
-    import Project from '@/Components/Skill'
+    import Project from '@/Components/Project'
+    import JetInputError from '@/Jetstream/InputError'
 
     export default defineComponent({
         components: {
@@ -162,7 +234,9 @@
             JetButton,
             Skill,
             Project,
-
+            JetModal,
+            JetInput,
+            JetInputError
         },
 
         props: {
@@ -171,7 +245,20 @@
             skills: Object,
             projects: Object
         },
+        data(){
+            return {
+                contacting: null,
+                form: this.$inertia.form({
+                    'email': '',
+                    'message': ''
+                })
+            }
+
+        },
         methods: {
+            submit(){
+                this.form.post(route('contact'));
+            }
 
         }
     })

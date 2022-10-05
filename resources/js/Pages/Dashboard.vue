@@ -1,4 +1,4 @@
-<!--<template>
+<template>
     <app-layout title="Dashboard">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -27,10 +27,10 @@
             Welcome,
         },
     })
-</script>-->
+</script>
 
 
-<template>
+<!--<template>
     <Head title="AppsByElsabe" />
 
     <Section class=" grid grid-cols-2 text-right bg-gray-800 text-gray-300">
@@ -136,34 +136,6 @@
 
 </Section>
 
-
-
-
-     <!--  <Section class="bg-gray-600 text-gray-200  h-screen">
-            <h2 class="text-5xl font-bold pt-3">Projects</h2>
-
-            <div v-for="(project, index) in projects" :key="index">
-                <Project
-                    :title="project.title"
-                    :description="project.description"
-                    :color="project.color"
-                >
-                <p>{{ project.title }}</p>
-                <p>{{ project.description }}</p>
-                <BeakerIcon />
-
-                </Project>
-            </div>
-
-            <div class="flex justify-center mt-10">
-                <jet-button class="
-                bg-purple-100 rounded
-                font-bold text-sm
-                text-gray-800 hover:bg-indigo-200">More information</jet-button>
-            </div>
-
-        </Section>-->
-
         <Section class="
         flex justify-between  bg-gray-800 text-gray-300 text-xl">
             <p class="flex justify-evenly items-center">&copy: AppsByElsabe. All rights reserved.</p>
@@ -205,6 +177,6 @@
             projects: Object
         }
     })
-</script>
+</script>-->
 
 
