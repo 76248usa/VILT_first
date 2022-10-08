@@ -9,8 +9,16 @@
 
                     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 text-right">
 
+
+
+
 <div>
     <h3>Add a new Project</h3>
+    <jet-button @click="
+        method = 'post';
+        action = route('projects.store')
+
+        ">Add New Project</jet-button>
 
  <form @submit.prevent="submit">
 
@@ -38,7 +46,6 @@
 </form>
 </div>
 
-
     <table class="table-auto">
   <thead>
     <tr>
@@ -55,8 +62,21 @@
       <td>{{ project.title }}</td>
       <td>{{ project.description }}</td>
       <td :class="project.color">{{ project.color }}</td>
-      <td><jet-button>Edit</jet-button></td>
-      <td><jet-button>Delete</jet-button></td>
+      <td><jet-button @click="
+        method = 'put';
+        action = route('projects.update', [project.id])
+        form.title = project.title;
+        form.description = project.description;
+        form.color = project.color;
+        form.icon_name = project.icon_name;
+        ">Edit</jet-button></td>
+
+
+      <td><jet-button
+        @click = "
+        method = 'delete';
+        action= route('projects.destroy', [project.id]);
+        submit();">Delete</jet-button></td>
     </tr>
   </tbody>
 </table>
@@ -84,7 +104,7 @@
             },
             methods: {
             submit(){
-              this.form.submit('post', route('projects.store'), {
+              this.form.submit(this.method, this.action, {
                 onSuccess: () => {
                     this.form.reset('title');
                     this.form.reset('description');
@@ -97,6 +117,8 @@
         },
         data(){
             return{
+                method: null,
+                action: null,
                 form: this.$inertia.form({
                 'title': '',
                 'description': '',
@@ -106,9 +128,8 @@
             }
 
         }
+    }
+</script>
 
-            }
-
-        </script>
 
 

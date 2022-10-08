@@ -27,4 +27,26 @@ class ProjectController extends Controller
 
         return redirect()->route('projects.index');
     }
+
+    public function update(Request $request, $id){
+        $project = Project::findOrFail($id);
+
+        $request->validate([
+            'title' => 'required'
+        ]);
+
+        $project->update($request->all());
+
+        return redirect()->route('projects.index');
+
+    }
+
+    public function destroy($id){
+        $project = Project::findOrFail($id);
+
+        $project->delete();
+
+        return redirect()->route('projects.index');
+
+    }
 }

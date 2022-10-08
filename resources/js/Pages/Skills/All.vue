@@ -22,6 +22,9 @@
                     "
                     @click="
                         acting = true;
+                        method = 'post';
+                        action = route('skills.store');
+
                     "
                 >
                     Add New +
@@ -157,7 +160,7 @@
         },
         methods: {
             submit(){
-              this.form.submit('post', route('skills.store'), {
+              this.form.submit(this.method, this.action, {
                 onSuccess: () => {
                     this.form.reset('name');
                     this.form.reset('color');
